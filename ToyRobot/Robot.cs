@@ -8,13 +8,13 @@ namespace ToyRobot
     public class Robot
     {
         public bool IsPlaced { get; set; }
-        public Board Board { get; set; }
+        //public Board Board { get; set; }
         public Coordinates CurrentPosition { get; set; }
         public Robot()
         {
             IsPlaced = false;
             //CHECK::Should we do it???
-            Board = null;
+            //Board = null;
         }
 
         internal void RunCommand(ICommand command, Board board)
@@ -23,14 +23,9 @@ namespace ToyRobot
             {
                 //Check if command is PLACE with proper inputs then we place it.
                 //LOGIC
-                if (command.HasDirection())
+                if (!command.HasDirection())
                 {
-                    IsPlaced = true;
-                    Board = board; //Initialize the board.
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Move: first place command needs direction.");
+                    Console.WriteLine("Please place the robot on the board using command : PLACE X,Y,DIRECTION");
                     return;
                 }
             }
@@ -38,10 +33,17 @@ namespace ToyRobot
             var newCoordinates = command.GetResultantCoordinates(CurrentPosition);
 
             //Check if new coordinates are valid or not.
-            if(!Board.CheckValidLimits(newCoordinates))
+            if(!board.CheckValidLimits(newCoordinates))
             {
                 Console.WriteLine("Invalid Move: Out of the limits.");
                 return;
+            }
+
+            if (!IsPlaced)
+            {
+                IsPlaced = true;
+                //Board = board; //Initialize the board.
+                Console.WriteLine("Congratulations you have successfully placed the robot on the board.");
             }
 
             CurrentPosition = newCoordinates;

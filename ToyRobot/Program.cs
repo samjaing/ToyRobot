@@ -13,60 +13,30 @@ namespace ToyRobot
             Board board = new Board();
             Console.WriteLine("Creating Robot.");
             Robot myRobot = new Robot();
-            var cmd = GetCommand("PLACE 2,4,NORTH");
-            myRobot.RunCommand(cmd, board);
-
-            var cmd2 = GetCommand("PLACE 2,5");
-            myRobot.RunCommand(cmd2, board);
-
-            var cmd3 = GetCommand("PLACE 2,1,SOUTH");
-            myRobot.RunCommand(cmd3, board);
-            PrintCoordinates(myRobot, board); 
-            var cmd4 = GetCommand("MOVE");
-            myRobot.RunCommand(cmd4, board);
-            PrintCoordinates(myRobot, board); 
-            cmd3 = GetCommand("PLACE 2,5, EAST");
-            myRobot.RunCommand(cmd3, board);
-            myRobot.RunCommand(cmd4, board);
-            PrintCoordinates(myRobot, board);
-            cmd3 = GetCommand("PLACE 2,5, NORTH");
-            myRobot.RunCommand(cmd3, board);
-            myRobot.RunCommand(cmd4, board);
-            PrintCoordinates(myRobot,board);
-
-            cmd3 = GetCommand("PLACE 2,5, NORTH");
-            myRobot.RunCommand(cmd3, board);
-            PrintCoordinates(myRobot, board);
-
-            var LEFTCommand = GetCommand("LEFT");
-            myRobot.RunCommand(LEFTCommand, board);
-            PrintCoordinates(myRobot, board);
-            var RIGHTCommand = GetCommand("RIGHT");
-            myRobot.RunCommand(RIGHTCommand, board);
-            PrintCoordinates(myRobot, board);
-
-            cmd3 = GetCommand("PLACE 1,1, EAST");
-            myRobot.RunCommand(cmd3, board);
-            PrintCoordinates(myRobot, board);
-            myRobot.RunCommand(LEFTCommand, board);
-            PrintCoordinates(myRobot, board);
-
-            myRobot.RunCommand(RIGHTCommand, board);
-            PrintCoordinates(myRobot, board);
-
-
+            Console.WriteLine("Place your robot on the board:");
+            while (true)
+            {
+                Console.Write("Cmd>>");
+                string inputCommand = Console.ReadLine();
+                
+                if (string.IsNullOrEmpty(inputCommand) || string.IsNullOrWhiteSpace(inputCommand))
+                    continue;
+                try
+                {
+                    var command = GetCommand(inputCommand);
+                    myRobot.RunCommand(command, board);
+                }
+                catch(ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
-
-        public static void PrintCoordinates(Robot myRobot, Board board)
-        {
-            var cmd = GetCommand("REPORT");
-            myRobot.RunCommand(cmd, board);
-        }
-
+        
         public static ICommand GetCommand(string command)
         {
             var parsed = ParseCommand(command);
-
+            
             switch(parsed.First())
             {
                 case "PLACE":
@@ -77,35 +47,31 @@ namespace ToyRobot
                         return new MoveCommand();
                     else
                     {
-                        Console.WriteLine("Wrong Format for MOVE Command");
-                        throw new Exception("Wrong Format for MOVE Command");
+                        throw new ArgumentException("Wrong Format for MOVE Command");
                     }
                 case "REPORT":
                     if (ReportCommand.ValidatedInputCommand(parsed))
                         return new ReportCommand();
                     else
                     {
-                        Console.WriteLine("Wrong Format for REPORT Command");
-                        throw new Exception("Wrong Format for REPORT Command");
+                        throw new ArgumentException("Wrong Format for REPORT Command");
                     }
                 case "LEFT":
                     if (LeftCommand.ValidatedInputCommand(parsed))
                         return new LeftCommand();
                     else
                     {
-                        Console.WriteLine("Wrong Format for LEFT Command");
-                        throw new Exception("Wrong Format for LEFT Command");
+                        throw new ArgumentException("Wrong Format for LEFT Command");
                     }
                 case "RIGHT":
                     if (RightCommand.ValidatedInputCommand(parsed))
                         return new RightCommand();
                     else
                     {
-                        Console.WriteLine("Wrong Format for RIGHT Command");
-                        throw new Exception("Wrong Format for RIGHTCommand");
+                        throw new ArgumentException("Wrong Format for RIGHTCommand");
                     }
                 default:
-                    throw new Exception("Command not found.");
+                    throw new ArgumentException("Command not found.");
 
             }
         }
@@ -113,7 +79,8 @@ namespace ToyRobot
         private static IEnumerable<string> ParseCommand(string cmd1)
         {
             if (String.IsNullOrEmpty(cmd1))
-                throw new Exception("Wrong Input.");
+                throw new ArgumentException("Invalid Command.");
+
 
             List<string> result = new List<string>();
 
@@ -123,7 +90,7 @@ namespace ToyRobot
 
             var brkCmd = cmd.Split(' ').ToList();
             if (!brkCmd.Any() || String.IsNullOrEmpty(brkCmd.First()))
-                throw new Exception("Wrong Input.");
+                throw new ArgumentException("Invalid Command.");
 
             result.Add(brkCmd.First());
 

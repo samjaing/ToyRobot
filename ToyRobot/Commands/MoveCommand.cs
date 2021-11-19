@@ -45,14 +45,12 @@ namespace ToyRobot.Commands
             if (!inputCommand.Any() || !(inputCommand.Count() == 1))
             {
                 var message = "Invalid Command: wrong format";
-                Console.WriteLine(message);
-                throw new Exception(message);
+                throw new ArgumentException(message);
             }
 
             if (inputCommand.First() != NAMEOFCOMMAND)
             {
-                Console.WriteLine("Wrong Input");
-                throw new Exception("Wrong Input");
+                throw new Exception("Wrong Input.");
             }
 
             return true;

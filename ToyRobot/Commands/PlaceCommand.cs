@@ -33,33 +33,27 @@ namespace ToyRobot.Commands
         {
             if(inputCommand.First() != NAMEOFCOMMAND)
             {
-                Console.WriteLine("Wrong Input");
-                throw Exception("Wrong Input");
+                throw new Exception("Wrong Input");
             }
 
             //PLACE Command cannot have more than 3 parameters X Axis, Y Axis and Directions   
             if (!inputCommand.Any() || !(inputCommand.Count() < 5 && inputCommand.Count() >= 3))
             {
                 var message = "Invalid Command: wrong format";
-                Console.WriteLine(message);
-                throw new Exception(message);
+                throw new ArgumentException(message);
             }
             
             var xAxisValue = inputCommand.ElementAt(1);
             int xAxis;
             if(!int.TryParse(xAxisValue,out xAxis))
             {
-                var message = $"Invalid integer value: {xAxisValue} ";
-                Console.WriteLine(message);
-                throw new Exception(message);
+                throw new ArgumentException($"Invalid integer value for x-axis: {xAxisValue} ");
             }
             var yAxisValue = inputCommand.ElementAt(2);
             int yAxis;
             if (!int.TryParse(yAxisValue, out yAxis))
             {
-                var message = $"Invalid integer value: {yAxisValue} ";
-                Console.WriteLine(message);
-                throw new Exception(message);
+                throw new ArgumentException($"Invalid integer value for y-axis: {yAxisValue} ");
             }
 
             var coordinates = new Coordinates(xAxis,yAxis);
@@ -70,19 +64,12 @@ namespace ToyRobot.Commands
                 Object directions;
                 if (!Enum.TryParse(typeof(Direction), directionsAsString, out directions))
                 {
-                    var message = $"Invalid Direction: {directionsAsString} ";
-                    Console.WriteLine(message);
-                    throw new Exception(message);
+                    throw new ArgumentException($"Invalid Direction: {directionsAsString}. Please make sure directions can be NORTH, SOUTH, EAST, WEST.");
                 }
                 else
                     coordinates.Face = (Direction)directions;
             }
             return coordinates;
-        }
-
-        private static Exception Exception(string v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

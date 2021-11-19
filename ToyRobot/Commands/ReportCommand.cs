@@ -9,13 +9,8 @@ namespace ToyRobot.Commands
     {
         const string NAMEOFCOMMAND = "REPORT";
         public Coordinates GetResultantCoordinates(Coordinates CurrentPosition)
-        {
-            Console.WriteLine($"-------REPORTING-------------");
-            Console.WriteLine($"X {CurrentPosition.XAxis}");
-            Console.WriteLine($"Y {CurrentPosition.YAxis}");
-            Console.WriteLine($"Direction {CurrentPosition.Face.ToString()}");
-            Console.WriteLine($"--------------------------");
-
+        {   
+            Console.WriteLine($"Output: {CurrentPosition.XAxis},{CurrentPosition.YAxis},{CurrentPosition.Face.ToString()}");
             return CurrentPosition;
         }
 
@@ -31,7 +26,7 @@ namespace ToyRobot.Commands
             {
                 var message = "Invalid Command: wrong format";
                 Console.WriteLine(message);
-                throw new Exception(message);
+                throw new ArgumentException(message);
             }
 
             if (inputCommand.First() != NAMEOFCOMMAND)
