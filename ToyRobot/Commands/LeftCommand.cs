@@ -10,7 +10,19 @@ namespace ToyRobot.Commands
     public class LeftCommand : ICommand
     {
         const CommandDescription NAMEOFCOMMAND = CommandDescription.LEFT;
+        
+        private LeftCommand() { }
 
+        public LeftCommand(IEnumerable<string> parsed)
+        {
+            if (!ValidatedInputCommand(parsed))
+                throw new ArgumentException("Wrong Format for LEFT Command");
+        }
+
+        /// <summary>Method <c>GetResultantCoordinates</c> return the new coordinates of the robot after applying commands on the current cordinates of the robot.</summary>
+        /// <param name="currentPosition"> Current coordinates of the robot.</param>
+        /// <returns>New set of coordinates after applying command of current corrdinates.</returns>
+        ///
         public Coordinates GetResultantCoordinates(Coordinates currentPosition)
         {
             Direction? newFace = currentPosition.Face?.Previous();
@@ -23,6 +35,11 @@ namespace ToyRobot.Commands
             return false;
         }
 
+        /// <summary>Method <c>ValidatedInputCommand</c> ensures if all the required variable are present to make a valid command.</summary>
+        /// <param name="inputCommand"> Takes the user input as a list </param>
+        /// <returns>True: All the values are present to create a valid command.
+        /// False: Wrong arguments passed to commands.</returns>
+        ///
         public static bool ValidatedInputCommand(IEnumerable<string> inputCommand)
         {
             //PLACE Command cannot have more than 3 parameters X Axis, Y Axis and Directions   

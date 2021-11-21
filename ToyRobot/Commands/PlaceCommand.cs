@@ -8,11 +8,13 @@ namespace ToyRobot.Commands
 {
     public class PlaceCommand : ICommand
     {
-        const CommandDescription NAMEOFCOMMAND = CommandDescription.PLACE;
+        public const CommandDescription NAMEOFCOMMAND = CommandDescription.PLACE;
         public Coordinates Coordinate { get; set; }
 
-        public PlaceCommand(Coordinates coordinates)
-        {
+        public PlaceCommand(IEnumerable<string> commandElements)
+        {  
+            var coordinates = ValidatedInputCommand(commandElements);
+            
             Coordinate = new Coordinates(
             coordinates.XAxis,
             coordinates.YAxis,
@@ -21,6 +23,11 @@ namespace ToyRobot.Commands
         }
 
         public bool HasDirection() => Coordinate.Face != null;
+
+        /// <summary>Method <c>GetResultantCoordinates</c> return the new coordinates of the robot after applying commands on the current cordinates of the robot.</summary>
+        /// <param name="currentPosition"> Current coordinates of the robot.</param>
+        /// <returns>New set of coordinates after applying command of current corrdinates.</returns>
+        ///
         public Coordinates GetResultantCoordinates(Coordinates CurrentPosition)
         {
             if (Coordinate.Face == null)
@@ -29,7 +36,11 @@ namespace ToyRobot.Commands
             }
             return Coordinate;
         }
-        
+
+        /// <summary>Method <c>ValidatedInputCommand</c> ensures if all the required variable are present to make a valid command and extract the coordinates.</summary>
+        /// <param name="inputCommand"> Takes the user input as a list </param>
+        /// <returns>Coordinates suppied by user in the input command. </returns>
+        ///
         public static Coordinates ValidatedInputCommand(IEnumerable<string> inputCommand)
         {
             if(inputCommand.First() != NAMEOFCOMMAND.ToString())
