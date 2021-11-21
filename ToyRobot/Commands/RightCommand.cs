@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ToyRobot.Enumerations;
 using ToyRobot.Extensions;
 
 
@@ -9,7 +10,7 @@ namespace ToyRobot.Commands
 {
     public class RightCommand : ICommand
     {
-        const string NAMEOFCOMMAND = "RIGHT";
+        const CommandDescription NAMEOFCOMMAND = CommandDescription.RIGHT;
 
         public Coordinates GetResultantCoordinates(Coordinates currentPosition)
         {
@@ -32,7 +33,7 @@ namespace ToyRobot.Commands
                 throw new ArgumentException(message);
             }
 
-            if (inputCommand.First() != NAMEOFCOMMAND)
+            if (inputCommand.First() != NAMEOFCOMMAND.ToString())
             {
                 Console.WriteLine("Wrong Input");
                 throw new Exception("Wrong Input");

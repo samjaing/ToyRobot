@@ -4,12 +4,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using ToyRobot.Attributes;
+using ToyRobot.Enumerations;
 
 namespace ToyRobot.Commands
 {
     public class MoveCommand : ICommand
     {
-        const string NAMEOFCOMMAND = "MOVE";
+        const CommandDescription NAMEOFCOMMAND = CommandDescription.MOVE;
 
         public Coordinates GetResultantCoordinates(Coordinates currentPosition)
         {
@@ -48,7 +49,7 @@ namespace ToyRobot.Commands
                 throw new ArgumentException(message);
             }
 
-            if (inputCommand.First() != NAMEOFCOMMAND)
+            if (inputCommand.First() != NAMEOFCOMMAND.ToString())
             {
                 throw new Exception("Wrong Input.");
             }

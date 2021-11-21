@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ToyRobot.Enumerations;
 
 namespace ToyRobot.Commands
 {
     public class PlaceCommand : ICommand
     {
-        const string NAMEOFCOMMAND = "PLACE";
+        const CommandDescription NAMEOFCOMMAND = CommandDescription.PLACE;
         public Coordinates Coordinate { get; set; }
 
         public PlaceCommand(Coordinates coordinates)
@@ -31,7 +32,7 @@ namespace ToyRobot.Commands
         
         public static Coordinates ValidatedInputCommand(IEnumerable<string> inputCommand)
         {
-            if(inputCommand.First() != NAMEOFCOMMAND)
+            if(inputCommand.First() != NAMEOFCOMMAND.ToString())
             {
                 throw new Exception("Wrong Input");
             }

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ToyRobot.Enumerations;
 
 namespace ToyRobot.Commands
 {
     public class ReportCommand : ICommand
     {
-        const string NAMEOFCOMMAND = "REPORT";
+        const CommandDescription NAMEOFCOMMAND = CommandDescription.REPORT;
         public Coordinates GetResultantCoordinates(Coordinates CurrentPosition)
         {   
             Console.WriteLine($"Output: {CurrentPosition.XAxis},{CurrentPosition.YAxis},{CurrentPosition.Face.ToString()}");
@@ -29,7 +30,7 @@ namespace ToyRobot.Commands
                 throw new ArgumentException(message);
             }
 
-            if (inputCommand.First() != NAMEOFCOMMAND)
+            if (inputCommand.First() != NAMEOFCOMMAND.ToString())
             {
                 Console.WriteLine("Wrong Input");
                 throw new Exception("Wrong Input");
