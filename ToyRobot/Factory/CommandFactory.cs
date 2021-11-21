@@ -20,18 +20,9 @@ namespace ToyRobot.Factory
         {
             var parsed = ParseCommand(command);
 
-            CommandDescription cmd;
-            object cmdObject;
-            if(Enum.TryParse(typeof(CommandDescription), parsed.First(),out cmdObject))
-            {
-                cmd = (CommandDescription)cmdObject;
-            }
-            else
-            {
-                throw new ArgumentException("Command not found.");
-            }
+            var commandType = GetCommandType(parsed.First());
 
-            switch (cmd)
+            switch (commandType)
             {
                 case CommandDescription.PLACE:
                     return new PlaceCommand(parsed);
@@ -50,11 +41,25 @@ namespace ToyRobot.Factory
             }
         }
 
+        /// <summary>Method <c>GetCommandType</c> get the description of command that will be used to instanciate the command.</summary>
+        /// <param name="command"> Takes name of the command in string format </param>
+        /// <returns>Enum of type CommandDescription </returns>
+        ///
+        public CommandDescription GetCommandType(string command)
+        {
+            CommandDescription cmd;
+            
+            if(!Enum.TryParse(command, out cmd))
+                throw new ArgumentException("Command not found.");
+
+            return cmd;
+        }
+
         /// <summary>Method <c>ParseCommand</c> parse the user input and place the input elements in a list.</summary>
         /// <param name="command"> Takes the user input in string format </param>
         /// <returns>Instance of type ICommand</returns>
         ///
-        private IEnumerable<string> ParseCommand(string userInput)
+        public IEnumerable<string> ParseCommand(string userInput)
         {
             if (String.IsNullOrEmpty(userInput))
                 throw new ArgumentException("Invalid Command.");

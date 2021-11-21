@@ -2,31 +2,30 @@
 using System.Collections.Generic;
 using System.Text;
 using ToyRobot.Commands;
+using ToyRobot.Exceptions;
 
 namespace ToyRobot
 {
     public class Robot
     {
         public bool IsPlaced { get; set; }
-        //public Board Board { get; set; }
         public Coordinates CurrentPosition { get; set; }
         public Robot()
         {
             IsPlaced = false;
-            //CHECK::Should we do it???
-            //Board = null;
         }
 
-        internal void RunCommand(ICommand command, Board board)
+        /// <summary>Method <c>RunCommand</c> apply the command on the current position of the robot.</summary>
+        /// <param name="command"> Command to execut on the robot.</param>
+        ///
+        public void RunCommand(ICommand command, Board board)
         {
             if (!IsPlaced)
             {
-                //Check if command is PLACE with proper inputs then we place it.
-                //LOGIC
+                //Check if command is PLACE with proper direction then we place it.
                 if (!command.HasDirection())
                 {
-                    Console.WriteLine("Please place the robot on the board using command : PLACE X,Y,DIRECTION");
-                    return;
+                    throw new NotPlacedException("Please place the robot on the board using command : PLACE X,Y,DIRECTION");
                 }
             }
             //Here we need to provide some current postion to this command and get if it is a valid command to move.
@@ -42,7 +41,6 @@ namespace ToyRobot
             if (!IsPlaced)
             {
                 IsPlaced = true;
-                //Board = board; //Initialize the board.
                 Console.WriteLine("Congratulations you have successfully placed the robot on the board.");
             }
 

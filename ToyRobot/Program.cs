@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using ToyRobot.Commands;
+using ToyRobot.Exceptions;
 using ToyRobot.Factory;
 
 namespace ToyRobot
@@ -29,6 +26,10 @@ namespace ToyRobot
                     myRobot.RunCommand(command, board);
                 }
                 catch(ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (NotPlacedException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
