@@ -20,8 +20,6 @@ namespace ToyRobotUnitTest
             _board = new Board(5,5);
         }
 
-    
-
         //Command should not execute if robot is not placed.
         [Theory]
         [InlineData("PLACE 3,4")]
@@ -60,6 +58,25 @@ namespace ToyRobotUnitTest
             Assert.Equal(expectedDirections.ToString(),currentPosition.Face?.ToString());
         }
 
+        //Command should not change its positon if resulting coordintate after applying the command are going out of bound.
+        [Theory]
+        [InlineData("PLACE -1,-1,SOUTH",5,5, "EAST")]
+        [InlineData("PLACE 6,6", 5, 5, "EAST")]
+        [InlineData("MOVE", 5, 5, "EAST")]
+        public void RunCommandShouldFail(string inputCommand, int expectedXAxis, int expectedYAxis, string expectedDirections)
+        {
+            Robot robot = new Robot();
+            PlaceRobot(robot,"PLACE 5,5,EAST");
+            var command = _commandFactory.GetCommand(inputCommand);
+
+            robot.RunCommand(command, _board);
+            var currentPosition = robot.CurrentPosition;
+
+            Assert.Equal(expectedXAxis, currentPosition.XAxis);
+            Assert.Equal(expectedYAxis, currentPosition.YAxis);
+            Assert.NotNull(currentPosition.Face);
+            Assert.Equal(expectedDirections.ToString(), currentPosition.Face?.ToString());
+        }
         private void PlaceRobot(Robot robot, string input = "PLACE 1,1,NORTH")
         {
             var command = _commandFactory.GetCommand(input);

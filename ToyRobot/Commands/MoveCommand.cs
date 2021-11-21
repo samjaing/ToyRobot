@@ -26,6 +26,7 @@ namespace ToyRobot.Commands
         ///
         public Coordinates GetResultantCoordinates(Coordinates currentPosition)
         {
+            Coordinates newCoordinates = new Coordinates(); 
             var type = currentPosition.Face.GetType();
             var name = Enum.GetName(type, currentPosition.Face);
             var moveToyAttribute = type.GetField(name) // I prefer to get attributes this way
@@ -40,11 +41,12 @@ namespace ToyRobot.Commands
             }
             else
             {
-                currentPosition.XAxis += moveToyAttribute.X;
-                currentPosition.YAxis += moveToyAttribute.Y;                
+                newCoordinates.XAxis = currentPosition.XAxis + moveToyAttribute.X;
+                newCoordinates.YAxis = currentPosition.YAxis + moveToyAttribute.Y;
+                newCoordinates.Face = currentPosition.Face;
             }
 
-            return currentPosition;
+            return newCoordinates;
         }
 
         public bool HasDirection()
