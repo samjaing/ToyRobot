@@ -1,4 +1,4 @@
-# Description
+# ToyRobot problem description
 
 TOY Robot application follows following rules:
 - The library allows for a simulation of a toy robot moving on a 6 x 6 square tabletop.
@@ -14,21 +14,21 @@ TOY Robot application follows following rules:
 - **REPORT** will announce the X,Y and orientation of the robot.
 - A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands.
 
-# Instruction to complie the code.
-- Linux Environment
-  * Exeucte BuildNRun.sh in a bash shell to comple and run the applications.
+## Instruction to complie the code.
+- **Linux Environment**
+    * Execute BuildNRun.sh in a bash shell to compile and run the application.
     
-      ./BuildNRun.sh
+      > [./BuildNRun.sh](https://github.com/samjaing/ToyRobot/blob/master/BuildNRun.sh)
     
-  * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
-  
+  * Once the code is compiled user may run the application directly by excuting the executable present in directory {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
 
+- **Windows Environment**
+  * Execute the BuildNRun.bat file to compile the run the application.
+      > [.\BuildNRun.bat](https://github.com/samjaing/ToyRobot/blob/master/BuildNRun.bat)
+      
+* Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
 
-- Windows Environment
-  * Execute the BuildAndRun.bat file to compile the run the application.
-  * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
-
-# Instruction to execute the code.
+## Instruction to execute the code.
 - Run the code
 - Place the robot on the board using place command with (X,Y,DIRECTION)
   Example PLACE 0,0,NORTH
@@ -40,28 +40,47 @@ TOY Robot application follows following rules:
   * LEFT
   * REPORT
   
-# Sample Execution
+## Sample Execution
+
+- Example 1
+    ```
     Creating Board of 6x6 tiles.
     Creating Robot.
-    Place your robot on the board:
-    Cmd>>PLACE 1,1,NORTH
+    Place your robot on the board:    
+    Cmd>>PLACE 0,0,NORTH
     Congratulations you have successfully placed the robot on the board.
     Cmd>>MOVE
+    Cmd>>REPORT
+    Output: 0,1,NORTH
+    ```
+
+- Example 2
+    ```
+    Cmd>>PLACE 0,0,NORTH
+    Cmd>>LEFT
+    Cmd>>REPORT
+    Output: 0,0,WEST
+    ```
+
+- Example 1
+    ```
+    Cmd>>PLACE 1,2,EAST
+    Cmd>>MOVE
     Cmd>>MOVE
     Cmd>>LEFT
     Cmd>>MOVE
     Cmd>>REPORT
-    Output: 0,3,WEST
-    Cmd>>RIGHT
-    Cmd>>REPORT
-    Output: 0,3,NORTH
-    Cmd>>PLACE 3,3,EAST
+    Output: 3,3,NORTH
+    ```
+
+- Example 4
+    ```
+    Cmd>>PLACE 1,2,EAST
     Cmd>>MOVE
     Cmd>>LEFT
     Cmd>>MOVE
+    Cmd>>PLACE 3,1
+    Cmd>>MOVE
     Cmd>>REPORT
-    Output: 4,4,NORTH
-    Cmd>>RIGHT
-    Cmd>>REPORT
-    Output: 4,4,EAST
-    Cmd>>
+    Output: 3,2,NORTH
+    ```
