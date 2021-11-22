@@ -16,9 +16,13 @@ TOY Robot application follows following rules:
 
 # Instruction to complie the code.
 - Linux Environment
-  * Exeucte BuildNRun.sh to comple and run the applications.
+  * Exeucte BuildNRun.sh in a bash shell to comple and run the applications.
+    
+      ./BuildNRun.sh
+    
   * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
-    ./BuildNRun.sh
+  
+
 
 - Windows Environment
   * Execute the BuildAndRun.bat file to compile the run the application.
