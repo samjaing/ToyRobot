@@ -14,7 +14,10 @@ TOY Robot application follows following rules:
 - **REPORT** will announce the X,Y and orientation of the robot.
 - A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands.
 
-## Instruction to complie the code.
+## Instruction to complie the code
+
+This application required framework **'Microsoft.NETCore.App', version '3.1.0'**.
+
 - **Linux Environment**
     * Execute BuildNRun.sh in a bash shell to compile and run the application.
     
