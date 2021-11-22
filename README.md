@@ -1,7 +1,7 @@
 # Description
 
-TOY Robot is a simulator which follow following rules:
-- The library allows for a simulation of a toy robot moving on a 5 x 5 square tabletop.
+TOY Robot application follows following rules:
+- The library allows for a simulation of a toy robot moving on a 6 x 6 square tabletop.
 - There are no obstructions on the table surface.
 - The robot is free to roam around the surface of the table, but must be prevented from falling to destruction. Any movement that would result in this must be prevented, however further valid movement commands must still be allowed.
 - PLACE will put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST.
@@ -18,18 +18,19 @@ TOY Robot is a simulator which follow following rules:
 - Linux Environment
   * Exeucte BuildNRun.sh to comple and run the applications.
   * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
+    ./BuildNRun.sh
 
 - Windows Environment
   * Execute the BuildAndRun.bat file to compile the run the application.
   * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
 
-Compile the code in Visual studio on .NET Core 3.1.
-Execute the code.
-
 # Instruction to execute the code.
 - Run the code
+- Place the robot on the board using place command with (X,Y,DIRECTION)
+  Example PLACE 0,0,NORTH
 - User can enter the following commands.
   * PLACE X,Y,DIRECTION
+  * PLACE X,Y
   * MOVE
   * RIGHT
   * LEFT
