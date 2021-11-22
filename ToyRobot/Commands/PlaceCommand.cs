@@ -43,10 +43,12 @@ namespace ToyRobot.Commands
         ///
         public static Coordinates ValidatedInputCommand(IEnumerable<string> inputCommand)
         {
-            if(inputCommand.First() != NAMEOFCOMMAND.ToString())
+            if(inputCommand == null)
             {
-                throw new Exception("Wrong Input");
+                throw new ArgumentException("Invalid Command: wrong format");
             }
+
+
 
             //PLACE Command cannot have more than 3 parameters X Axis, Y Axis and Directions   
             if (!inputCommand.Any() || !(inputCommand.Count() < 5 && inputCommand.Count() >= 3))
@@ -54,7 +56,11 @@ namespace ToyRobot.Commands
                 var message = "Invalid Command: wrong format";
                 throw new ArgumentException(message);
             }
-            
+
+            if (inputCommand.First() != NAMEOFCOMMAND.ToString())
+            {
+                throw new Exception("Wrong Input");
+            }
             var xAxisValue = inputCommand.ElementAt(1);
             int xAxis;
             if(!int.TryParse(xAxisValue,out xAxis))
@@ -74,6 +80,15 @@ namespace ToyRobot.Commands
             {
                 var directionsAsString = inputCommand.ElementAt(3);
                 Object directions;
+                
+                //Enum.TryParse successfull parese any integer string without confirming if the integer string is defined for the ENUM or not.
+                //So this check ensures if the passed string is defined in the ENUM.
+                
+                if (!Enum.IsDefined(typeof(Direction), directionsAsString))
+                {
+                    throw new ArgumentException($"Invalid Direction: {directionsAsString}. Please make sure directions can be NORTH, SOUTH, EAST, WEST.");
+                }
+
                 if (!Enum.TryParse(typeof(Direction), directionsAsString, out directions))
                 {
                     throw new ArgumentException($"Invalid Direction: {directionsAsString}. Please make sure directions can be NORTH, SOUTH, EAST, WEST.");

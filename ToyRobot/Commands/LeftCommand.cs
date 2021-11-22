@@ -42,7 +42,12 @@ namespace ToyRobot.Commands
         ///
         public static bool ValidatedInputCommand(IEnumerable<string> inputCommand)
         {
-            //PLACE Command cannot have more than 3 parameters X Axis, Y Axis and Directions   
+            if (inputCommand == null)
+            {
+                throw new ArgumentException("Invalid Command: wrong format");
+            }
+
+            //LEFT Command should have exactly 1 parameters ie. name of the command.
             if (!inputCommand.Any() || !(inputCommand.Count() == 1))
             {
                 var message = "Invalid Command: wrong format";

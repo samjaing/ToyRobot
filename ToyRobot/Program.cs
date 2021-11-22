@@ -9,6 +9,7 @@ namespace ToyRobot
         static void Main(string[] args)
         {
             CommandFactory commandFactory = new CommandFactory();
+            Console.WriteLine("Creating Board of 6x6 tiles.");
             Board board = new Board();
             Console.WriteLine("Creating Robot.");
             Robot myRobot = new Robot();

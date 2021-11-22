@@ -48,8 +48,16 @@ namespace ToyRobot.Factory
         public CommandDescription GetCommandType(string command)
         {
             CommandDescription cmd;
-            
-            if(!Enum.TryParse(command, out cmd))
+
+            //Enum.TryParse successfull parese any integer string without confirming if the integer string is defined for the ENUM or not.
+            //So this check ensures if the passed string is defined in the ENUM.
+
+            if (!Enum.IsDefined(typeof(CommandDescription), command))
+            {
+                throw new ArgumentException("Command not found.");
+            }
+
+            if (!Enum.TryParse(command, out cmd))
                 throw new ArgumentException("Command not found.");
 
             return cmd;
