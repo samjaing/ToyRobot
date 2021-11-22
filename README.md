@@ -15,6 +15,14 @@ TOY Robot is a simulator which follow following rules:
 - A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands.
 
 # Instruction to complie the code.
+- Linux Environment
+  * Exeucte BuildNRun.sh to comple and run the applications.
+  * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
+
+- Windows Environment
+  * Execute the BuildAndRun.bat file to compile the run the application.
+  * Once the code is compiled user may run the application directly by excuting the executable present in {ProjectDirectory}/ToyRobot/bin/Debug/netcoreapp3.1/ToyRobot
+
 Compile the code in Visual studio on .NET Core 3.1.
 Execute the code.
 
@@ -28,7 +36,7 @@ Execute the code.
   * REPORT
   
 # Sample Execution
-    Creating Board of 5x5 tiles.
+    Creating Board of 6x6 tiles.
     Creating Robot.
     Place your robot on the board:
     Cmd>>PLACE 1,1,NORTH
