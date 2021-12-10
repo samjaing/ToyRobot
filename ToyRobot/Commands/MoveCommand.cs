@@ -37,7 +37,7 @@ namespace ToyRobot.Commands
             // If moveToyAttribute is not null, than a direction exists
             if (moveToyAttribute == null)
             {
-                throw new ApplicationException("MOVE steps not defined for direction");
+                throw new ArgumentException("MOVE steps not defined for direction");
             }
             else
             {

@@ -13,6 +13,8 @@ namespace ToyRobot
             Board board = new Board();
             Console.WriteLine("Creating Robot.");
             Robot myRobot = new Robot();
+            Console.WriteLine("Connecting Robot with Board;");
+            board.AssignRobot(myRobot);
             Console.WriteLine("Place your robot on the board:");
             while (true)
             {
@@ -21,10 +23,11 @@ namespace ToyRobot
                 
                 if (string.IsNullOrEmpty(inputCommand) || string.IsNullOrWhiteSpace(inputCommand))
                     continue;
+
                 try
                 {
                     var command = commandFactory.GetCommand(inputCommand);
-                    myRobot.RunCommand(command, board);
+                    board.Bot.RunCommand(command);
                 }
                 catch(ArgumentException ex)
                 {

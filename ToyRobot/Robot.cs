@@ -1,24 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ToyRobot.Commands;
 using ToyRobot.Exceptions;
 
 namespace ToyRobot
 {
-    public class Robot
+    public class Robot : IRobot
     {
         public bool IsPlaced { get; set; }
         public Coordinates CurrentPosition { get; set; }
+        private Func<Coordinates, bool> IsSafe;
+
         public Robot()
         {
             IsPlaced = false;
+            IsSafe = DefaultIsSafe;
+        }
+        public Robot(Func<Coordinates, bool> isSafe)
+        {
+            IsPlaced = false;
+            IsSafe = isSafe;
         }
 
+        private bool DefaultIsSafe(Coordinates coordinate) => throw new ArgumentException("Robot is not prepared. Safety check not provided.");
+        public void SetIsSafePosition(Func<Coordinates, bool> isSafe)
+        {
+            IsSafe = isSafe;
+        }
+        
         /// <summary>Method <c>RunCommand</c> apply the command on the current position of the robot.</summary>
         /// <param name="command"> Command to execut on the robot.</param>
         ///
-        public void RunCommand(ICommand command, Board board)
+        public void RunCommand(ICommand command)
         {
             if (!IsPlaced)
             {
@@ -32,7 +44,7 @@ namespace ToyRobot
             var newCoordinates = command.GetResultantCoordinates(CurrentPosition);
 
             //Check if new coordinates are valid or not.
-            if(!board.CheckValidLimits(newCoordinates))
+            if (!IsSafe(newCoordinates))
             {
                 Console.WriteLine("Invalid Move: Out of the limits.");
                 return;

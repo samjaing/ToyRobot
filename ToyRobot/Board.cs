@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ToyRobot
 {
@@ -8,6 +6,8 @@ namespace ToyRobot
     {
         public int XLimit { get; set; }
         public int YLimit { get; set; }
+        public IRobot Bot { get; set; }
+        public bool BotLinked => !(Bot == null);
 
         public Board()
         {
@@ -19,6 +19,16 @@ namespace ToyRobot
             XLimit = xLimit;
             YLimit = yLimit;
         }
+
+        public void AssignRobot(IRobot bot) 
+        {
+            if (BotLinked)
+                throw new ArgumentException("Board already have a robot.");
+            Bot = bot;
+            //TODO : Reset bot to a not place position.
+            Bot.SetIsSafePosition(CheckValidLimits);
+        }
+
         /// <summary>
         /// CheckValidLimits checks if the provided cooredinates present in the limits of the board.
         /// </summary>
