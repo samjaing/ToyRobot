@@ -22,6 +22,10 @@ namespace ToyRobot
         }
 
         private bool DefaultIsSafe(Coordinates coordinate) => throw new ArgumentException("Robot is not prepared. Safety check not provided.");
+        /// <summary>
+        /// Assign the logic that will be used by robot to check if the resultant position are safe
+        /// </summary>
+        /// <param name="isSafe"> Provide the logic that will be used by robot to check if the resultant position are safe</param>
         public void SetIsSafePosition(Func<Coordinates, bool> isSafe)
         {
             IsSafe = isSafe;
