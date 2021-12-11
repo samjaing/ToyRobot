@@ -13,8 +13,9 @@ namespace ToyRobot
         {
             XLimit = 5;
             YLimit = 5;
+
         }
-        public Board(int xLimit, int yLimit)
+        public Board(int xLimit, int yLimit):base()
         {
             XLimit = xLimit;
             YLimit = yLimit;
@@ -25,8 +26,8 @@ namespace ToyRobot
             if (BotLinked)
                 throw new ArgumentException("Board already have a robot.");
             Bot = bot;
-            //TODO : Reset bot to a not place position.
-            Bot.SetIsSafePosition(CheckValidLimits);
+            //TODO : Reset bot to a not place position.    
+            Bot.IsSafeEvent += CheckValidLimits;
         }
 
         /// <summary>
@@ -34,9 +35,10 @@ namespace ToyRobot
         /// </summary>
         /// <param name="coordinates"></param>
         /// <returns>Boolean value</returns>
-        public bool CheckValidLimits(Coordinates coordinates)
-        {
-            return coordinates.XAxis <= XLimit && coordinates.XAxis >= 0 && coordinates.YAxis <= YLimit && coordinates.YAxis >= 0;
-        }
+        public bool CheckValidLimits(Coordinates coordinates) => coordinates.XAxis <= XLimit && 
+                                                                coordinates.XAxis >= 0 && 
+                                                                coordinates.YAxis <= YLimit && 
+                                                                coordinates.YAxis >= 0;
+        
     }
 }

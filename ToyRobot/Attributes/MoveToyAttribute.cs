@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ToyRobot.Attributes
 {
@@ -20,6 +18,10 @@ namespace ToyRobot.Attributes
         /// </summary>
         public int Y { get; set; }
 
+        //TODO: Implement Clock positions.
+        //public short ClockAngle { get; set; }
+        //public MoveToyAttribute(int x, int y, short ClockAngle)
+        
         public MoveToyAttribute(int x, int y)
         {
             if ((x < int.MaxValue && x > int.MinValue) && (y < int.MaxValue && y > int.MinValue))

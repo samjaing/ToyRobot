@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ToyRobot;
+﻿using ToyRobot;
 using ToyRobot.Exceptions;
 using ToyRobot.Factory;
 using Xunit;
@@ -18,6 +15,8 @@ namespace ToyRobotUnitTest
         {
             _commandFactory = new CommandFactory();
             _board = new Board(5,5);
+            Robot robot = new Robot();
+            _board.AssignRobot(robot);
         }
 
         //Command should not execute if robot is not placed.
@@ -29,9 +28,8 @@ namespace ToyRobotUnitTest
         [InlineData("REPORT")]
         public void IgnoreCommandIfRobotNotPlaced(string inputCommand)
         {
-            Robot robot = new Robot();
             var command = _commandFactory.GetCommand(inputCommand);
-            Assert.Throws<NotPlacedException>(() => robot.RunCommand(command, _board));
+            Assert.Throws<NotPlacedException>(() => _board.Bot.RunCommand(command));
         }
 
         //Command should execute if robot is placed.Considering Robot is placed on PLACE 1,1,NORTH inintially.
@@ -45,12 +43,11 @@ namespace ToyRobotUnitTest
         [InlineData("PLACE 5,5", 5, 5, "NORTH")]
         public void RunCommandShouldPass(string inputCommand,int expectedXAxis, int expectedYAxis, string expectedDirections)
         {
-            Robot robot = new Robot();
-            PlaceRobot(robot);
+            PlaceRobot();
             var command = _commandFactory.GetCommand(inputCommand);
 
-            robot.RunCommand(command, _board);
-            var currentPosition = robot.CurrentPosition;
+            _board.Bot.RunCommand(command);
+            var currentPosition = _board.Bot.GetCurrentPostions();
 
             Assert.Equal(expectedXAxis,currentPosition.XAxis );
             Assert.Equal(expectedYAxis, currentPosition.YAxis);
@@ -65,22 +62,21 @@ namespace ToyRobotUnitTest
         [InlineData("MOVE", 5, 5, "EAST")]
         public void RunCommandShouldFail(string inputCommand, int expectedXAxis, int expectedYAxis, string expectedDirections)
         {
-            Robot robot = new Robot();
-            PlaceRobot(robot,"PLACE 5,5,EAST");
+            PlaceRobot("PLACE 5,5,EAST");
             var command = _commandFactory.GetCommand(inputCommand);
 
-            robot.RunCommand(command, _board);
-            var currentPosition = robot.CurrentPosition;
+            _board.Bot.RunCommand(command);
+            var currentPosition = _board.Bot.GetCurrentPostions();
 
             Assert.Equal(expectedXAxis, currentPosition.XAxis);
             Assert.Equal(expectedYAxis, currentPosition.YAxis);
             Assert.NotNull(currentPosition.Face);
             Assert.Equal(expectedDirections.ToString(), currentPosition.Face?.ToString());
         }
-        private void PlaceRobot(Robot robot, string input = "PLACE 1,1,NORTH")
+        private void PlaceRobot(string input = "PLACE 1,1,NORTH")
         {
             var command = _commandFactory.GetCommand(input);
-            robot.RunCommand(command, _board);
+            _board.Bot.RunCommand(command);
         }
     }
 }

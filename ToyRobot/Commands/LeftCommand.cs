@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using ToyRobot.Extensions;
 using ToyRobot.Enumerations;
+using ToyRobot.Extensions;
 
 namespace ToyRobot.Commands
 {

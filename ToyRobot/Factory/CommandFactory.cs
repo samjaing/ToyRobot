@@ -47,6 +47,11 @@ namespace ToyRobot.Factory
         ///
         public CommandDescription GetCommandType(string command)
         {
+            if(string.IsNullOrWhiteSpace(command))
+            {
+                throw new ArgumentException("Invalid Command string passed.");
+            }
+
             CommandDescription cmd;
 
             //Enum.TryParse successfull parese any integer string without confirming if the integer string is defined for the ENUM or not.

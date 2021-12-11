@@ -37,6 +37,10 @@ namespace ToyRobot
                 {
                     Console.WriteLine(ex.Message);
                 }
+                catch(BusinessException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }

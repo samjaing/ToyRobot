@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using ToyRobot.Attributes;
 using ToyRobot.Enumerations;
 
@@ -26,7 +24,7 @@ namespace ToyRobot.Commands
         ///
         public Coordinates GetResultantCoordinates(Coordinates currentPosition)
         {
-            Coordinates newCoordinates = new Coordinates(); 
+            Coordinates newCoordinates; 
             var type = currentPosition.Face.GetType();
             var name = Enum.GetName(type, currentPosition.Face);
             var moveToyAttribute = type.GetField(name) // I prefer to get attributes this way
@@ -41,9 +39,11 @@ namespace ToyRobot.Commands
             }
             else
             {
-                newCoordinates.XAxis = currentPosition.XAxis + moveToyAttribute.X;
-                newCoordinates.YAxis = currentPosition.YAxis + moveToyAttribute.Y;
-                newCoordinates.Face = currentPosition.Face;
+                var XAxis = currentPosition.XAxis + moveToyAttribute.X;
+                var YAxis = currentPosition.YAxis + moveToyAttribute.Y;
+                var newFace = currentPosition.Face;
+                newCoordinates = new Coordinates(XAxis, YAxis, newFace);
+                //moveToyAttribute.ClockAngle
             }
 
             return newCoordinates;

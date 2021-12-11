@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ToyRobot.Enumerations
+﻿namespace ToyRobot.Enumerations
 {
     public enum CommandDescription
     {

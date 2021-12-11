@@ -5,7 +5,8 @@ namespace ToyRobot
 {
     public interface IRobot
     {
-        void SetIsSafePosition(Func<Coordinates, bool> isSafe);
         void RunCommand(ICommand command);
+        Coordinates GetCurrentPostions();
+        event Func<Coordinates, bool> IsSafeEvent;
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ToyRobot.Commands;
 using ToyRobot.Enumerations;
 using ToyRobot.Factory;

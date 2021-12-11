@@ -1,28 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ToyRobot
+﻿namespace ToyRobot
 {
     public class Coordinates
     {
-
         public int XAxis { get; set; }
         public int YAxis { get; set; }
-        public Direction? Face { get; set; }
-        public Coordinates()
-        { }
+        //public FacePosition Face;
 
-        public Coordinates(int xAxis, int yAxis)
+        public Direction? Face { get; set; }
+        private Coordinates() { }
+
+        public Coordinates(int xAxis, int yAxis) : base()
         {
             XAxis = xAxis;
             YAxis = yAxis;
         }
-        public Coordinates(int xAxis, int yAxis, Direction? face)
+
+        public Coordinates(int xAxis, int yAxis, Direction? face) : this(xAxis, yAxis)
         {
-            XAxis = xAxis;
-            YAxis = yAxis;
             Face = face;
         }
+    }
+
+    //TODO: Implement Clock Positions.
+    public struct FacePosition
+    {
+        short Degree;
+        Direction Face;
     }
 }

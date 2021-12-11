@@ -1,4 +1,3 @@
-using System;
 using ToyRobot.Factory;
 using Xunit;
 

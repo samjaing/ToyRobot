@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ToyRobot.Commands;
 using ToyRobot.Exceptions;
 
@@ -7,35 +8,37 @@ namespace ToyRobot
     public class Robot : IRobot
     {
         public bool IsPlaced { get; set; }
-        public Coordinates CurrentPosition { get; set; }
-        private Func<Coordinates, bool> IsSafe;
+        private Coordinates CurrentPosition { get; set; }
+        public event Func<Coordinates, bool> IsSafeEvent ;
 
         public Robot()
         {
             IsPlaced = false;
-            IsSafe = DefaultIsSafe;
+            IsSafeEvent = DefaultIsSafe;
         }
-        public Robot(Func<Coordinates, bool> isSafe)
+        public Robot(Func<Coordinates, bool> isSafe):base()
         {
-            IsPlaced = false;
-            IsSafe = isSafe;
+            IsSafeEvent = isSafe;
         }
 
-        private bool DefaultIsSafe(Coordinates coordinate) => throw new ArgumentException("Robot is not prepared. Safety check not provided.");
         /// <summary>
-        /// Assign the logic that will be used by robot to check if the resultant position are safe
+        /// Get the current coordinates of the robot.
         /// </summary>
-        /// <param name="isSafe"> Provide the logic that will be used by robot to check if the resultant position are safe</param>
-        public void SetIsSafePosition(Func<Coordinates, bool> isSafe)
-        {
-            IsSafe = isSafe;
-        }
+        /// <returns></returns>
+        public Coordinates GetCurrentPostions() => IsPlaced ? CurrentPosition : throw new BusinessException("Robot is not placed.");
+
+        private bool DefaultIsSafe(Coordinates coordinate) => throw new ArgumentException("Robot is not prepared. Safety check not provided.");
         
         /// <summary>Method <c>RunCommand</c> apply the command on the current position of the robot.</summary>
         /// <param name="command"> Command to execut on the robot.</param>
         ///
         public void RunCommand(ICommand command)
         {
+            if (IsSafeEvent == null)
+            {
+                throw new BusinessException("Robot is not placed.");
+            }
+            
             if (!IsPlaced)
             {
                 //Check if command is PLACE with proper direction then we place it.
@@ -44,11 +47,15 @@ namespace ToyRobot
                     throw new NotPlacedException("Please place the robot on the board using command : PLACE X,Y,DIRECTION");
                 }
             }
+
             //Here we need to provide some current postion to this command and get if it is a valid command to move.
             var newCoordinates = command.GetResultantCoordinates(CurrentPosition);
 
             //Check if new coordinates are valid or not.
-            if (!IsSafe(newCoordinates))
+            var isValidPosition = IsSafeEvent.GetInvocationList()
+                                    .Select(checkMethod => (bool)checkMethod.DynamicInvoke(newCoordinates))
+                                    .Any(checkResult => checkResult == false);
+            if (isValidPosition)
             {
                 Console.WriteLine("Invalid Move: Out of the limits.");
                 return;

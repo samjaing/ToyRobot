@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ToyRobot.Extensions
+﻿namespace ToyRobot.Extensions
 {
     public static class DirectionExtension
     {
