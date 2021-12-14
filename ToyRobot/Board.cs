@@ -11,8 +11,8 @@ namespace ToyRobot
 
         public Board()
         {
-            XLimit = 5;
-            YLimit = 5;
+            XLimit = 7;
+            YLimit = 7;
         }
         public Board(int xLimit, int yLimit)
         {

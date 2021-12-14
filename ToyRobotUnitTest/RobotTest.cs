@@ -17,7 +17,7 @@ namespace ToyRobotUnitTest
         public RobotTest()
         {
             _commandFactory = new CommandFactory();
-            _board = new Board(5,5);
+            _board = new Board();
         }
 
         //Command should not execute if robot is not placed.
@@ -60,13 +60,13 @@ namespace ToyRobotUnitTest
 
         //Command should not change its positon if resulting coordintate after applying the command are going out of bound.
         [Theory]
-        [InlineData("PLACE -1,-1,SOUTH",5,5, "EAST")]
-        [InlineData("PLACE 6,6", 5, 5, "EAST")]
-        [InlineData("MOVE", 5, 5, "EAST")]
+        [InlineData("PLACE -1,-1,SOUTH",7,7, "EAST")]
+        [InlineData("PLACE 8,8", 7, 7, "EAST")]
+        [InlineData("MOVE", 7, 7, "EAST")]
         public void RunCommandShouldFail(string inputCommand, int expectedXAxis, int expectedYAxis, string expectedDirections)
         {
             Robot robot = new Robot();
-            PlaceRobot(robot,"PLACE 5,5,EAST");
+            PlaceRobot(robot,"PLACE 7,7,EAST");
             var command = _commandFactory.GetCommand(inputCommand);
 
             robot.RunCommand(command, _board);

@@ -29,7 +29,7 @@ namespace ToyRobot.Commands
             Coordinates newCoordinates = new Coordinates(); 
             var type = currentPosition.Face.GetType();
             var name = Enum.GetName(type, currentPosition.Face);
-            var moveToyAttribute = type.GetField(name) // I prefer to get attributes this way
+            var moveToyAttribute = type.GetField(name) 
                 .GetCustomAttributes(false)
                 .OfType<MoveToyAttribute>()
                 .SingleOrDefault();
