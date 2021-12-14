@@ -24,7 +24,7 @@ namespace ToyRobot.Commands
         ///
         public Coordinates GetResultantCoordinates(Coordinates currentPosition)
         {
-            Coordinates newCoordinates; 
+            Coordinates newCoordinates;
             var type = currentPosition.Face.GetType();
             var name = Enum.GetName(type, currentPosition.Face);
             var moveToyAttribute = type.GetField(name) // I prefer to get attributes this way

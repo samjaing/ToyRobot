@@ -22,7 +22,7 @@ namespace ToyRobot.Commands
         /// <returns>New set of coordinates after applying command of current corrdinates.</returns>
         ///
         public Coordinates GetResultantCoordinates(Coordinates CurrentPosition)
-        {   
+        {
             Console.WriteLine($"Output: {CurrentPosition.XAxis},{CurrentPosition.YAxis},{CurrentPosition.Face.ToString()}");
             return CurrentPosition;
         }

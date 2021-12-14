@@ -15,9 +15,9 @@ namespace ToyRobotUnitTest
         {
             _commandFactory = new CommandFactory();
         }
-        
+
         [Theory]
-        [InlineData("LEFT",CommandDescription.LEFT)]
+        [InlineData("LEFT", CommandDescription.LEFT)]
         [InlineData("RIGHT", CommandDescription.RIGHT)]
         [InlineData("PLACE", CommandDescription.PLACE)]
         [InlineData("MOVE", CommandDescription.MOVE)]
@@ -50,7 +50,7 @@ namespace ToyRobotUnitTest
         [InlineData("PLACE 1,2", 3)]
         [InlineData("PLACE 1,2,NORTH", 4)]
         [InlineData(" PLACE   1, 2 ,  SOUTH", 4)]    // Testing for irregular spaces
-        public void ParseCommandShouldPass(string inputCommand ,int expectedCount)
+        public void ParseCommandShouldPass(string inputCommand, int expectedCount)
         {
             var parsedCommandResult = _commandFactory.ParseCommand(inputCommand);
             Assert.Equal(parsedCommandResult.ToList().Count(), expectedCount);
@@ -76,7 +76,7 @@ namespace ToyRobotUnitTest
             ICommand command = _commandFactory.GetCommand(inputCommand);
             Assert.Equal(expectedType, command.GetType());
         }
-        
+
         [Theory]
         [InlineData("LEFT 1,3")]
         [InlineData("RIGHT 3,2")]

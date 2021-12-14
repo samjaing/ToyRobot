@@ -11,9 +11,9 @@ namespace ToyRobot.Commands
         public Coordinates Coordinate { get; set; }
 
         public PlaceCommand(IEnumerable<string> commandElements)
-        {  
+        {
             var coordinates = ValidatedInputCommand(commandElements);
-            
+
             Coordinate = new Coordinates(
             coordinates.XAxis,
             coordinates.YAxis,
@@ -42,7 +42,7 @@ namespace ToyRobot.Commands
         ///
         public static Coordinates ValidatedInputCommand(IEnumerable<string> inputCommand)
         {
-            if(inputCommand == null)
+            if (inputCommand == null)
             {
                 throw new ArgumentException("Invalid Command: wrong format");
             }
@@ -62,7 +62,7 @@ namespace ToyRobot.Commands
             }
             var xAxisValue = inputCommand.ElementAt(1);
             int xAxis;
-            if(!int.TryParse(xAxisValue,out xAxis))
+            if (!int.TryParse(xAxisValue, out xAxis))
             {
                 throw new ArgumentException($"Invalid integer value for x-axis: {xAxisValue} ");
             }
@@ -73,16 +73,16 @@ namespace ToyRobot.Commands
                 throw new ArgumentException($"Invalid integer value for y-axis: {yAxisValue} ");
             }
 
-            var coordinates = new Coordinates(xAxis,yAxis);
-            
+            var coordinates = new Coordinates(xAxis, yAxis);
+
             if (inputCommand.Count() == 4)
             {
                 var directionsAsString = inputCommand.ElementAt(3);
                 Object directions;
-                
+
                 //Enum.TryParse successfull parese any integer string without confirming if the integer string is defined for the ENUM or not.
                 //So this check ensures if the passed string is defined in the ENUM.
-                
+
                 if (!Enum.IsDefined(typeof(Direction), directionsAsString))
                 {
                     throw new ArgumentException($"Invalid Direction: {directionsAsString}. Please make sure directions can be NORTH, SOUTH, EAST, WEST.");

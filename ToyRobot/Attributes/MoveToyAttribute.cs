@@ -21,7 +21,7 @@ namespace ToyRobot.Attributes
         //TODO: Implement Clock positions.
         //public short ClockAngle { get; set; }
         //public MoveToyAttribute(int x, int y, short ClockAngle)
-        
+
         public MoveToyAttribute(int x, int y)
         {
             if ((x < int.MaxValue && x > int.MinValue) && (y < int.MaxValue && y > int.MinValue))

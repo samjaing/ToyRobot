@@ -20,7 +20,7 @@ namespace ToyRobot
             {
                 Console.Write("Cmd>>");
                 string inputCommand = Console.ReadLine();
-                
+
                 if (string.IsNullOrEmpty(inputCommand) || string.IsNullOrWhiteSpace(inputCommand))
                     continue;
 
@@ -29,7 +29,7 @@ namespace ToyRobot
                     var command = commandFactory.GetCommand(inputCommand);
                     board.Bot.RunCommand(command);
                 }
-                catch(ArgumentException ex)
+                catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -37,7 +37,7 @@ namespace ToyRobot
                 {
                     Console.WriteLine(ex.Message);
                 }
-                catch(BusinessException ex)
+                catch (BusinessException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }

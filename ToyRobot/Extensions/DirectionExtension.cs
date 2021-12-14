@@ -6,7 +6,7 @@
         /// <param name="Rotation"> Degree of rotation when applying Right command.</param>
         /// <returns>Returns new direction after applying rotation.</returns>
         ///
-        public static Direction Next(this Direction direction, int Rotation=90)
+        public static Direction Next(this Direction direction, int Rotation = 90)
         {
             int CurrentDirectionValue = (int)direction;
             int newDirection = (CurrentDirectionValue + Rotation) % 360;

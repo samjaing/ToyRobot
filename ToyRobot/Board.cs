@@ -15,13 +15,14 @@ namespace ToyRobot
             YLimit = 5;
 
         }
-        public Board(int xLimit, int yLimit):base()
+
+        public Board(int xLimit, int yLimit) : base()
         {
             XLimit = xLimit;
             YLimit = yLimit;
         }
 
-        public void AssignRobot(IRobot bot) 
+        public void AssignRobot(IRobot bot)
         {
             if (BotLinked)
                 throw new ArgumentException("Board already have a robot.");
@@ -35,10 +36,10 @@ namespace ToyRobot
         /// </summary>
         /// <param name="coordinates"></param>
         /// <returns>Boolean value</returns>
-        public bool CheckValidLimits(Coordinates coordinates) => coordinates.XAxis <= XLimit && 
-                                                                coordinates.XAxis >= 0 && 
-                                                                coordinates.YAxis <= YLimit && 
+        public bool CheckValidLimits(Coordinates coordinates) => coordinates.XAxis <= XLimit &&
+                                                                coordinates.XAxis >= 0 &&
+                                                                coordinates.YAxis <= YLimit &&
                                                                 coordinates.YAxis >= 0;
-        
+
     }
 }

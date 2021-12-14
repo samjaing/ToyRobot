@@ -9,14 +9,14 @@ namespace ToyRobot
     {
         public bool IsPlaced { get; set; }
         private Coordinates CurrentPosition { get; set; }
-        public event Func<Coordinates, bool> IsSafeEvent ;
+        public event Func<Coordinates, bool> IsSafeEvent;
 
         public Robot()
         {
             IsPlaced = false;
-            IsSafeEvent = DefaultIsSafe;
+            //IsSafeEvent = DefaultIsSafe;
         }
-        public Robot(Func<Coordinates, bool> isSafe):base()
+        public Robot(Func<Coordinates, bool> isSafe) : base()
         {
             IsSafeEvent = isSafe;
         }
@@ -28,7 +28,7 @@ namespace ToyRobot
         public Coordinates GetCurrentPostions() => IsPlaced ? CurrentPosition : throw new BusinessException("Robot is not placed.");
 
         private bool DefaultIsSafe(Coordinates coordinate) => throw new ArgumentException("Robot is not prepared. Safety check not provided.");
-        
+
         /// <summary>Method <c>RunCommand</c> apply the command on the current position of the robot.</summary>
         /// <param name="command"> Command to execut on the robot.</param>
         ///
@@ -38,7 +38,7 @@ namespace ToyRobot
             {
                 throw new BusinessException("Robot is not placed.");
             }
-            
+
             if (!IsPlaced)
             {
                 //Check if command is PLACE with proper direction then we place it.

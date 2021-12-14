@@ -9,7 +9,7 @@ namespace ToyRobot.Commands
     public class LeftCommand : ICommand
     {
         const CommandDescription NAMEOFCOMMAND = CommandDescription.LEFT;
-        
+
         private LeftCommand() { }
 
         public LeftCommand(IEnumerable<string> parsed)
